@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "amd": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["plugin:vue/vue3-recommended"],
+  "rules": {
+    "no-console": 1,
+    "no-use-before-define": 2,
+    "no-var": 2,
+    "no-unneeded-ternary": 2,
+    "no-nested-ternary": 2,
+    "react/react-in-jsx-scope": 0,
+    "no-debugger": 2
+  },
+  "settings": {
+    "vue": {
+      "version": "detect"
+    }
+  }
+}
