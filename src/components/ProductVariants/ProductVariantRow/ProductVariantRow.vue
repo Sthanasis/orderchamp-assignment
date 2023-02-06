@@ -50,7 +50,7 @@
     <Text>
       <FontAwesomeIcon
         v-if="variant.stock"
-        class="text-green-600"
+        class="text-success"
         :icon="faCircleCheck"
       />
     </Text>

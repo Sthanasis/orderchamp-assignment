@@ -6,6 +6,7 @@ module.exports = {
     colors: {
       bordergrey: colors.gray[200],
       textgrey: colors.gray[500],
+      success: colors.green[700],
       ...colors,
     },
   },
