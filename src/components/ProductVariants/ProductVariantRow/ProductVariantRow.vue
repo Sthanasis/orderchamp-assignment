@@ -35,24 +35,32 @@
     with-right-border
     :with-bottom-border="!isLast"
   >
-    <Text> {{ variant.price }} €</Text>
+    <Text> €{{ variant.price }} </Text>
   </ProductVariantCell>
   <ProductVariantCell
     with-right-border
     :with-bottom-border="!isLast"
   >
-    <Text> {{ variant.msrp }} </Text>
+    <Text> €{{ variant.msrp }} </Text>
   </ProductVariantCell>
   <ProductVariantCell
     class="text-center"
     :with-bottom-border="!isLast"
   >
-    <Text> {{ variant.stock ? '√' : 'x' }} </Text>
+    <Text>
+      <FontAwesomeIcon
+        v-if="variant.stock"
+        class="text-green-600"
+        :icon="faCircleCheck"
+      />
+    </Text>
   </ProductVariantCell>
 </template>
 
 <script lang="ts" setup>
 import { VariantType } from '~/types';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import Text from '~/components/common/Text.vue';
 import Button from '~/components/common/Button.vue';
 import ProductVariantCell from './ProductVariantCell.vue';

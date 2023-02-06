@@ -5,7 +5,8 @@ module.exports = {
   theme: {
     colors: {
       bordergrey: colors.gray[200],
-      textgreay: colors.gray[500],
+      textgrey: colors.gray[500],
+      ...colors,
     },
   },
   plugins: [],
