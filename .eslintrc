@@ -1,9 +1,11 @@
 {
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
   "env": {
-    "browser": true,
-    "amd": true,
-    "es6": true,
-    "node": true
+    "browser": true
   },
   "extends": ["plugin:vue/vue3-recommended"],
   "rules": {
@@ -12,8 +14,9 @@
     "no-var": 2,
     "no-unneeded-ternary": 2,
     "no-nested-ternary": 2,
-    "react/react-in-jsx-scope": 0,
-    "no-debugger": 2
+    "no-debugger": 2,
+    "vue/multi-word-component-names": 0,
+    "vue/singleline-html-element-content-newline": 0
   },
   "settings": {
     "vue": {
