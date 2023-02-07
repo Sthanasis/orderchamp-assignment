@@ -38,14 +38,24 @@ import Header from '../common/Table/Header.vue';
 import Text from '../common/Text.vue';
 
 const productStore = useProductStore();
-const { variants, title, loading } = storeToRefs(productStore);
+const { subtractQuantity, setTotalOrderAmount, addQuantity } = productStore;
+const { variants, title, loading, totalOrderAmount } =
+  storeToRefs(productStore);
 const columns = ['Quantity', 'Variant', 'Price', 'MSRP', 'Stock'];
 const handleAdd = (id: string) => {
-  productStore.addQuantity(id);
+  addQuantity(id);
+  const variant = variants.value.find((v) => v.id === id);
+  if (variant) {
+    setTotalOrderAmount(totalOrderAmount.value + +variant.price);
+  }
 };
 
 const handleSubtract = (id: string) => {
-  productStore.subtractQuantity(id);
+  subtractQuantity(id);
+  const variant = variants.value.find((v) => v.id === id);
+  if (variant) {
+    setTotalOrderAmount(totalOrderAmount.value - +variant.price);
+  }
 };
 
 onMounted(productStore.loadProduct);

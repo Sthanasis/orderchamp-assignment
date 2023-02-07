@@ -2,7 +2,11 @@
   <button
     :class="{
       'text-3xl': variant === 'icon',
-      'opacity-20': disabled,
+      'opacity-40': disabled,
+      'py-4 px-3 mt-5 mx-0 bg-success text-white flex justify-between w-full':
+        variant === 'checkout',
+      'py-3 px-3 mt-5 mx-0 bg-black text-white flex justify-center items-center w-full':
+        variant === 'favorite',
     }"
     class="mx-2"
     :disabled="disabled"
@@ -21,7 +25,7 @@ defineEmits<{
 withDefaults(
   defineProps<{
     disabled?: boolean;
-    variant?: 'icon' | 'primary' | 'secondary' | 'default';
+    variant?: 'icon' | 'checkout' | 'favorite' | 'default';
   }>(),
   { variant: 'default' }
 );

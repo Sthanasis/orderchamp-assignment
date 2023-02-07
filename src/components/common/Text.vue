@@ -3,7 +3,7 @@
     :is="tag ?? 'span'"
     :class="{
       'font-bold my-4 text-2xl': tag === 'h1',
-      'decoration-dashed': tag === 'a',
+      'underline cursor-pointer': tag === 'a',
     }"
   >
     <slot />
