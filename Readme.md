@@ -1,4 +1,4 @@
-## Requirements
+# Requirements
 
 - Node.js v14.17.x, v16.x and above
 
