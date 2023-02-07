@@ -36,11 +36,15 @@ import Table from '../common/Table/Table.vue';
 import ProductVariantRow from './ProductVariantRow/ProductVariantRow.vue';
 import Header from '../common/Table/Header.vue';
 import Text from '../common/Text.vue';
+import { useCartStore } from '~/store/cart';
 
 const productStore = useProductStore();
-const { subtractQuantity, setTotalOrderAmount, addQuantity } = productStore;
-const { variants, title, loading, totalOrderAmount } =
-  storeToRefs(productStore);
+const cartStore = useCartStore();
+const { subtractQuantity, addQuantity, loadProduct } = productStore;
+const { setTotalOrderAmount } = cartStore;
+const { variants, title, loading } = storeToRefs(productStore);
+const { totalOrderAmount } = storeToRefs(cartStore);
+
 const columns = ['Quantity', 'Variant', 'Price', 'MSRP', 'Stock'];
 const handleAdd = (id: string) => {
   addQuantity(id);
@@ -58,5 +62,5 @@ const handleSubtract = (id: string) => {
   }
 };
 
-onMounted(productStore.loadProduct);
+onMounted(loadProduct);
 </script>

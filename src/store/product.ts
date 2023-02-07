@@ -1,3 +1,5 @@
+import { useProductReviewStore } from './reviews';
+import { useCartStore } from './cart';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import type { ImageType, VariantType } from '~/types';
 
@@ -8,13 +10,6 @@ interface IProductState {
   variants: VariantType[];
   selectedImage: ImageType | null;
   description: string;
-  minimumOrderAmount: number;
-  totalOrderAmount: number;
-  brand: string;
-  totalReviewScore: number;
-  avgReviewScore: number;
-  totalReviews: number;
-  inStock: boolean;
 }
 
 const initialState = {
@@ -24,23 +19,15 @@ const initialState = {
   variants: [],
   selectedImage: null,
   description: '',
-  minimumOrderAmount: 0,
-  totalOrderAmount: 0,
-  brand: '',
-  totalReviewScore: 0,
-  avgReviewScore: 0,
-  totalReviews: 0,
-  inStock: false,
 };
 
 export const useProductStore = defineStore('product', {
   state: (): IProductState => initialState,
-  getters: {
-    overMinOrderLimit: (state: IProductState) =>
-      state.minimumOrderAmount <= state.totalOrderAmount,
-  },
+
   actions: {
     async loadProduct() {
+      const { setCartStore } = useCartStore();
+      const { setProductReviewStore } = useProductReviewStore();
       this.loading = false;
 
       const res = await import('~/assets/response');
@@ -53,28 +40,42 @@ export const useProductStore = defineStore('product', {
         realAverageReviewScore,
         reviews,
       } = data.storefrontBySlug;
-      const { images, variants, title, description, inStock } = listing;
+      const { images, variants, title, description, inStock, leadTime } =
+        listing;
 
-      this.brand = name;
-      this.minimumOrderAmount = +minimumOrderAmount;
-      this.title = title;
-      this.description = description;
-      this.totalReviewScore = reviewScore;
-      this.avgReviewScore = realAverageReviewScore;
-      this.totalReviews = reviews.totalCount;
-      this.inStock = inStock;
+      setCartStore({
+        minimumOrderAmount: +minimumOrderAmount,
+        inStock,
+        leadTime,
+        totalOrderAmount: 0,
+      });
+      setProductReviewStore({
+        brand: name,
+        totalReviews: reviews.totalCount,
+        avgReviewScore: realAverageReviewScore,
+        totalReviewScore: reviewScore,
+      });
 
-      this.images = images.edges.map(({ node }) => node);
-      this.selectedImage = this.images[0];
-
-      this.variants = variants.edges.map(({ node }) => {
+      const newImages = images.edges.map(({ node }) => node);
+      const selectedImage = this.images[0];
+      const newVariants = variants.edges.map(({ node }) => {
         const { msrp, id, price, inventory, options, inventoryPolicy } = node;
         const variant = options.map((item) => item.value).join(' - ');
         const stock = inventoryPolicy === 'CONTINUE';
         return { msrp, id, price, quantity: inventory, variant, stock };
       });
 
-      this.loading = false;
+      this.setProductStore({
+        title,
+        description,
+        images: newImages,
+        selectedImage,
+        variants: newVariants,
+        loading: false,
+      });
+    },
+    setProductStore(obj: IProductState) {
+      this.$state = obj;
     },
     addQuantity(id: string) {
       this.variants = this.variants.map((v) => {

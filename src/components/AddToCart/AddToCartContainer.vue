@@ -32,12 +32,12 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCheck, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { storeToRefs } from 'pinia';
-import { useProductStore } from '~/store/product';
 import Text from '../common/Text.vue';
 import AddToCartWrapper from './AddToCartWrapper.vue';
 import Button from '../common/Button.vue';
+import { useCartStore } from '~/store/cart';
 
-const store = useProductStore();
+const store = useCartStore();
 
 const { inStock, leadTime, totalOrderAmount } = storeToRefs(store);
 </script>
