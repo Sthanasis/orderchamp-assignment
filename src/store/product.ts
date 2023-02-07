@@ -57,7 +57,7 @@ export const useProductStore = defineStore('product', {
       });
 
       const newImages = images.edges.map(({ node }) => node);
-      const selectedImage = this.images[0];
+      const selectedImage = newImages[0];
       const newVariants = variants.edges.map(({ node }) => {
         const { msrp, id, price, inventory, options, inventoryPolicy } = node;
         const variant = options.map((item) => item.value).join(' - ');
