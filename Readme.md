@@ -2,21 +2,21 @@
 
 - Node.js v14.17.x, v16.x and above
 
-## Init local dev environment
+# Init local dev environment
 
 - npm run dev
 
-## Build and Preview
+# Build and Preview
 
 - npm run build:preview
 
-## IDE SETUP
+# IDE SETUP
 
-# Editor
+## Editor
 
 - VSCode
 
-# Extensions
+## Extensions
 
 - prettier code formatter
 - vue volar extension pack
